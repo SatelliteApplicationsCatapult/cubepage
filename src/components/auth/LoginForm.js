@@ -11,7 +11,7 @@ const LoginForm = () => {
   const [showLoading, setShowLoading] = useState(false);
 
   const { form, use } = useForm({
-    defaultValues: { name: "satoshi", pass: "satoshi" },
+    defaultValues: { name: "", pass: "" },
 
     onSubmit: (values) => {
       requestToken(values.name, values.pass, setError).then((response) => {
