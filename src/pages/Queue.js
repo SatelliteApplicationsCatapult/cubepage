@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   fetchActiveTasks,
+  fetchTaskNames,
   checkTask,
   fetchResults,
   downloadResult,
@@ -10,17 +11,16 @@ import { CircularProgress } from "@mui/material";
 import "../assets/styles/queue.scss";
 
 const Queue = () => {
+  const [taskNames, setTaskNames] = useState([]);
   const [activeTasks, setActiveTasks] = useState([]);
   const [loadingActiveTasks, setLoadingActiveTasks] = useState(false);
 
   const [results, setResults] = useState([]);
 
-  useEffect(async () => {
-    await fetchActiveTasks(setActiveTasks, setLoadingActiveTasks);
-  }, []);
-
-  useEffect(async () => {
-    await fetchResults(setResults);
+  useEffect(() => {
+    fetchTaskNames(setTaskNames);
+    fetchActiveTasks(setActiveTasks, setLoadingActiveTasks);
+    fetchResults(setResults);
   }, []);
 
   return (
@@ -89,7 +89,8 @@ const Queue = () => {
                 These are the results from your tasks. Click on the row to
                 download the relevant{" "}
                 <a
-                  target="_blank" rel="noreferrer"
+                  target="_blank"
+                  rel="noreferrer"
                   href="https://support.microsoft.com/en-us/windows/zip-and-unzip-files-8d28fa72-f2f9-712f-67df-f80cf89fd4e5"
                 >
                   ZIP file
@@ -101,23 +102,29 @@ const Queue = () => {
           {results && (
             <div class="queue results-table">
               <div className="results-row-container">
-                {[...results].reverse().map((result, i) => (
-                  <div
-                    key={i}
-                    onClick={() => downloadResult(result.taskid)}
-                    className="queue-row"
-                  >
-                    <div className="queue-col">
-                      <p>{result.taskid}</p>
+                {[...results].reverse().map((result, i) => {
+                  // Load the JSON of result.data
+                  const data = JSON.parse(result.data);
+                  const taskName = data.task;
+                  const displayName = taskNames[taskName];
+                  return (
+                    <div
+                      key={i}
+                      onClick={() => downloadResult(result.taskid)}
+                      className="queue-row"
+                    >
+                      <div className="queue-col">
+                        <p>{displayName}</p>
+                      </div>
+                      <div className="queue-col">
+                        <p>{result.dateCompleted}</p>
+                      </div>
+                      <div className="queue-col">
+                        <p>Download</p>
+                      </div>
                     </div>
-                    <div className="queue-col">
-                      <p>{result.dateCompleted}</p>
-                    </div>
-                    <div className="queue-col">
-                      <p>Download</p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}

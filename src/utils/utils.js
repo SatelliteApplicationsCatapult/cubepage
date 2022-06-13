@@ -36,7 +36,6 @@ export const fetchActiveTasks = async (
     headers: headers,
   })
     .then(function (response) {
-      console.log(response);
       setActiveTasks(response.data);
       setLoadingActiveTasks(false);
     })
@@ -45,6 +44,33 @@ export const fetchActiveTasks = async (
         //window.location.href = "/login";
       }
       setLoadingActiveTasks(false);
+    });
+};
+
+export const fetchTaskNames = async (setTaskNames) => {
+  const axios = require("axios");
+  const headers = {
+    "Content-Type": "application/json; charset=utf-8;",
+  };
+  await axios({
+    method: "post",
+    url: process.env.REACT_APP_PORTAL_URL + "/fetch-products",
+    headers: headers,
+    data: { token: window.localStorage.getItem("cubetoken") },
+  })
+    .then(function (response) {
+      // Create a dictionary of name to display_name
+      const taskNames = {};
+      response.data.result.forEach((task) => {
+        taskNames[task.name] = task.display_name.trim();
+      });
+      setTaskNames(taskNames);
+    })
+    .catch(function (error) {
+      console.log(error);
+      if ((error.response && error.response.status > 400) || !error.response) {
+        //window.location.href = "/login";
+      }
     });
 };
 
