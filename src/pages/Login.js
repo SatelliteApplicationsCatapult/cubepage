@@ -20,6 +20,7 @@ const Login = () => {
             </small>
           </div>
         </div>
+          <LoginForm />
       </div>
 
       <div className="login_form">

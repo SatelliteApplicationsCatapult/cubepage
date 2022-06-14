@@ -20,7 +20,6 @@ function App() {
     window.localStorage.getItem("projects")
   );
 
-
   useEffect(() => {
     if (availableProjects) {
       let projects;
