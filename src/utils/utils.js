@@ -141,6 +141,7 @@ export const downloadResult = async (taskId) => {
     })
     .catch(function (error) {
       if ((error.response && error.response.status > 400) || !error.response) {
+        console.log('Failed to download result ::', error);
         alert("Failed to download result");
       }
     });
