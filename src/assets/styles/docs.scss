@@ -76,7 +76,6 @@
 
   &-paragraph-with-multiple-images {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1rem;
     border-bottom: 1px solid #e6e6e6;
@@ -96,7 +95,7 @@
     &__images {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: space-around;
       margin: 2rem;
     }
 
@@ -109,20 +108,44 @@
         object-fit: contain;
         width: 100%;
       }
+
+      & p {
+        font-size:0.8em;
+        text-align: justify;
+        margin-top: 1rem;
+        color:#333;
+      }
     }
 
     &__text {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       height: 100%;
       margin: 2rem;
+      margin-left:0;
 
       & h3 {
         font-size: 1.2rem;
         color: #333;
         margin-bottom: 0em;
+        text-align:center;
       }
+    }
+  }
+
+  &-use-case {
+    background-color: #3D7E44;
+    width: 100%;
+    padding:2em;
+    border-radius: 0.5em;
+
+    & span {
+      color:white;
+    }
+
+    & h3 {
+      color:white;
+      margin-bottom:1em;
     }
   }
 }

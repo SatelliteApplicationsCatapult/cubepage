@@ -34,7 +34,8 @@ export const docs = {
       type: "paragraph-with-image",
       subheading: "Description",
       image: "water-perm.png",
-      text: `For every image, from the satellites Sentinel-1, Sentinel-2 and the Landsat series, a water mask has been generated. This product takes these water masks to generate 
+      text: `For every image, from the satellites Sentinel-1, Sentinel-2 and the Landsat series, a water mask has been generated. This product takes these water masks to generate.
+
       This product takes advantage of the per scene pre-generated water masks, to provide information on the permanency of a water surface. The permanency is reprinted as a percentage of the total number of observations in which water is detected in each pixel. `,
       direction: "ltr",
     },
@@ -69,6 +70,10 @@ export const docs = {
       This product could be used to inform on the fluctuation of water bodies over a time period. This could be used to identify water resources vulnerable to drying out or areas of regular flooding.
       Example Use Case
       This use case looks at an inland water body in Fiji, Vaturu Dam, this is a human-built dam, which provides water to the dry western division of Viti Levu. In December 2019 water levels were reported to be low in this dam. This product can be used to see the water permamency within the dam. `,
+    },
+    {
+      type: "use-case",
+      text: "This use case looks at an inland water body in Fiji, Vaturu Dam, this is a human-built dam, which provides water to the dry western division of Viti Levu. In December 2019 water levels were reported to be low in this dam. This product can be used to see the water permamency within the dam.  ",
     },
   ],
   "WaterChange.WaterChange_Task": [
@@ -107,6 +112,7 @@ export const docs = {
       type: "paragraph-with-image",
       subheading: "Outputs",
       image: "output-1.png",
+      imagefit: "contain",
       caption: `In the water change threshold product, only values of 0 and 1 exist, this product shows how the meander of a river has moved over several decades`,
       text: `Two final products are produced
 
@@ -115,6 +121,10 @@ export const docs = {
       2. Threshold change based on a user-defined threshold, this offers binary values of 0 or 1 decided by whether they are above or below the threshold value. 
       
       These offer a picture of where the surface water has changed between two time periods.`,
+    },
+    {
+      type: "use-case",
+      text: "Here we will consider the long terms changes in the river Ba River near the city of Ba.",
     },
   ],
   "WaterQuality.WaterQuality_Task": [
@@ -213,6 +223,7 @@ export const docs = {
       type: "paragraph-with-image",
       subheading: "Outputs",
       image: "legend.png",
+      imagefit: "contain",
       text: `Satellite: Two of the available sensors are applicable to Fractional Cover, as multi-spectral sensors are needed, Sentinel-2 and the Landsat series. Which of these sensors you choose depends on the time period for which you are interested in. 
       Time Range: The time period in which you would like the images for the analysis. If the result has ‘holes’ in it (areas of no data), try increasing the time period, this is a result of cloud cover.
       
@@ -285,6 +296,10 @@ Mosaic Type: This determines how all the data recorded in your time range, for e
       If ‘holes’ occur in your output, this could be due to two things:
       Water is present in your AOI – areas of water are masked out during processing.
       Cloud is present in your AOI – cloud is masked out during processing. `,
+    },
+    {
+      type: "use-case",
+      text: `"It is May 2016, I am interested in seeing the impacts of tropical cyclone Winston which struck Fiji in February of 2016, on the vegetation of Fiji's many islands. I heard from news reports and ground teams that the islands in the Southeast of Fiji were impacted. The vegetation on these islands is important for preventing soil erosion, so I am interested to see how the vegetation on this island this year compares to last year."`,
     },
   ],
   "MosaicIndices.MosaicIndices_Task": [
@@ -378,6 +393,10 @@ Mosaic Type: This determines how all the data recorded in your time range, for e
       ],
       direction: "ttb",
     },
+    {
+      type: "use-case",
+      text: "These indices feed into many of the other products, these products are available to enable users to work with these more basic products for more bespoke analysis. The use cases for each product will vary. ",
+    },
   ],
   "VegetationChange.VegetationChange_Task": [
     {
@@ -445,6 +464,12 @@ Mosaic Type: This determines how all the data recorded in your time range, for e
           caption: "Threshold vegetation change product",
         },
       ],
+      text: "",
+      direction: "ttb",
+    },
+    {
+      type: "use-case",
+      text: "Wakaya island was impacted by cyclone Winston in late February, this product can help us understand how the vegetation was impacted.      ",
     },
   ],
   "LandChange.LandChange_Task": [
@@ -513,6 +538,10 @@ Mosaic Type: This determines how all the data recorded in your time range, for e
       Cloud is present in your AOI – cloud is masked out during processing. `,
       direction: "ltr",
     },
+    {
+      type: "use-case",
+      text: "This land cover product can be used to look at the changing land cover which could be useful for impact assessments or damage assessments. To find areas where land covers have changed between two time periods.  ",
+    },
   ],
   "Geomedian.Geomedian_Task": [
     {
@@ -567,6 +596,10 @@ Mosaic Type: This determines how all the data recorded in your time range, for e
       ],
       direction: "ttb",
       text: `The output is a raster product in '.tif' format, with the same number of bands as the input product. It is a geometric median of all the images for that sensor in the time period selected. The bands can be viewed in different orders to give different views, e.g. Red, Green, Blue to give a natural colour image as above.`,
+    },
+    {
+      type: "use-case",
+      text: `"I would like to create a Geomedian over Suva, so I can use it as a base map but also for further analysis."       `,
     },
   ],
   "S1Median.S1Median_Task": [

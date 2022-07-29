@@ -33,7 +33,28 @@ const Docs = ({ tasks }) => {
                     </div>
                     <div className="docs-paragraph-with-image__text">
                       <h3>{doc.subheading}</h3>
-                      <p>{doc.text}</p>
+                      <p>
+                        {doc.text.split("\n").map((line, index) => {
+                          if (line.includes(":")) {
+                            const lineArray = line.split(":");
+                            if (lineArray[0].length < 60) {
+                              return (
+                                <span key={index}>
+                                  <b>{lineArray[0]}: </b>
+                                  <span>{lineArray[1]}</span>
+                                  <br />
+                                </span>
+                              );
+                            }
+                          }
+                          return (
+                            <span key={index}>
+                              {line}
+                              <br />
+                            </span>
+                          );
+                        })}
+                      </p>
                     </div>
                   </div>
                 )}
@@ -45,7 +66,26 @@ const Docs = ({ tasks }) => {
                     <div className="docs-paragraph-with-multiple-images__text">
                       <h3>{doc.subheading}</h3>
                     </div>
-                    <p>{doc.text}</p>
+                    {doc.text.split("\n").map((line, index) => {
+                      if (line.includes(":")) {
+                        const lineArray = line.split(":");
+                        if (lineArray[0].length < 60) {
+                          return (
+                            <span key={index}>
+                              <b>{lineArray[0]}: </b>
+                              <span>{lineArray[1]}</span>
+                              <br />
+                            </span>
+                          );
+                        }
+                      }
+                      return (
+                        <span key={index}>
+                          {line}
+                          <br />
+                        </span>
+                      );
+                    })}
                     <div className="docs-paragraph-with-multiple-images__images">
                       {doc.images.map((image, index) => (
                         <div
@@ -61,6 +101,23 @@ const Docs = ({ tasks }) => {
                       ))}
                     </div>
                   </div>
+                )}
+
+                {doc.type === "use-case" && (
+                  <>
+                    <div className="docs-use-case">
+                      <h3>Use Case</h3>
+
+                      {doc.text.split("\n").map((line, index) => {
+                        return (
+                          <span key={index}>
+                            {line}
+                            <br />
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </>
                 )}
 
                 {doc.type === "coming-soon" && (
