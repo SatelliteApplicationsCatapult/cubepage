@@ -14,14 +14,26 @@ import CardImage from "../card/CardImage";
 import { submitTasks } from "../../utils/utils";
 import { useState } from "react";
 
-const TaskForm = ({ task, settings, availableProjects }) => {
+const TaskForm = ({
+  task,
+  settings,
+  availableProjects,
+  fetchedTask,
+  hasTaskID,
+}) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
 
   let defaultValues = {};
-  for (const arg of task.args) {
-    defaultValues[arg.name] = "";
+
+  if (!hasTaskID) {
+    for (const arg of task.args) {
+      defaultValues[arg.name] = "";
+    }
+  } else {
+    defaultValues = fetchedTask.args;
   }
+
   const { form, use, setValue, runValidation, setError, getState, submit } =
     useForm({
       defaultValues,
@@ -84,6 +96,7 @@ const TaskForm = ({ task, settings, availableProjects }) => {
         <FloatField arg={arg} setValue={setValue} error={errors[arg.name]} />
       );
     } else if (arg.type === "date") {
+
       return (
         <DateField
           arg={arg}
