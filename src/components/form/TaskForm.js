@@ -45,6 +45,13 @@ const TaskForm = ({ task, settings, availableProjects }) => {
       },
     });
 
+  // if not hasTaskID then set the value to all the args
+  if (hasTaskID && fetchedTask) {
+    for (const arg of task.args) {
+      arg.default = fetchedTask.args[arg.name];
+    }
+  }
+
   const errors = use("errors");
 
   const createTaskField = (arg) => {
