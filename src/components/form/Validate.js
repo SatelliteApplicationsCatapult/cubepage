@@ -43,6 +43,53 @@ const Validate = async (values, settings, taskName) => {
     }
   });
   var validatedRanges = [];
+
+  /**
+   * checks if an analysis_platform exists in values
+   * gets the sensor name inorder to find its start and end times from the conditions object
+   * updates the analysis_time_end and analysis_time_start in parsedSettings
+   * if no analysis sensor has been chosen yet, the revelant parsedSettings are set to an empty array
+  */
+  if(values.analysis_platform.length != 0){
+    let analysisSensorName = values.analysis_platform[0];
+    // getting the start/end data for this sensor
+    for (let setting of settings.platform){
+      if (setting.name === analysisSensorName){
+        // updating the analysis start/end in parsedSettings
+        parsedSettings.analysis_time_end = new Array(setting.conditions.at(-1).value);
+        parsedSettings.analysis_time_start = new Array(setting.conditions.at(-1).value);
+      };
+    };
+  } else {
+    // setting empty arrays for the analysis start/end
+    parsedSettings.analysis_time_end = [];
+    parsedSettings.analysis_time_start = [];
+  };
+
+  /**
+   * checks if an analysis_platform exists in values
+   * gets the sensor name inorder to find its start and end times from the conditions object
+   * updates the analysis_time_end and analysis_time_start in parsedSettings
+   * if no analysis sensor has been chosen yet, the revelant parsedSettings are set to an empty array
+  */
+  if(values.baseline_platform.length != 0){
+    let baselineSensorName = values.baseline_platform[0];
+    // getting the start/end data for this sensor
+    for (let setting of settings.platform){
+      if (setting.name === baselineSensorName){ 
+        // updating the baseline start/end in parsedSettings
+        parsedSettings.baseline_time_end = new Array(setting.conditions.at(-1).value);
+        parsedSettings.baseline_time_start = new Array(setting.conditions.at(-1).value);
+      };
+    };
+
+  } else {
+    // setting empty arrays for the baseline start/end
+    parsedSettings.baseline_time_end = [];
+    parsedSettings.baseline_time_start = [];
+  };
+
+
   Object.keys(parsedSettings).forEach((setting) => {
     var minValues = [];
     var maxValues = [];
