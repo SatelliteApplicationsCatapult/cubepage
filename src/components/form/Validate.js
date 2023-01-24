@@ -43,6 +43,71 @@ const Validate = async (values, settings, taskName) => {
     }
   });
   var validatedRanges = [];
+
+  /**
+   * checks if analysis_platform exists in the values array (is a field in the form)
+   * checks if analysis_platform has a value (analysis sensor(s) chosen)
+   * checks if the analysis_platform is an array [Water Change form only]
+   * gets the sensor name inorder to find its start and end times from the conditions object
+   * updates the analysis_time_end and analysis_time_start in parsedSettings
+   * if no analysis sensor has been chosen yet, the revelant parsedSettings are set to an empty array
+  */
+  if(values.analysis_platform != undefined){
+    if(values.analysis_platform.length != 0){
+      let analysisSensorName;
+      // checking if the sensors stored in the values array are themselves an array (only for Water Change task)
+      if (Array.isArray(values.analysis_platform)){
+        analysisSensorName = values.analysis_platform[0];
+      } else {
+        analysisSensorName = values.analysis_platform;
+      };
+      // getting the start/end data for this sensor
+      for (let setting of settings.platform){
+        if (setting.name === analysisSensorName){
+          // updating the analysis start/end in parsedSettings
+          parsedSettings.analysis_time_end = new Array(setting.conditions.at(-1).value);
+          parsedSettings.analysis_time_start = new Array(setting.conditions.at(-1).value);
+        };
+      };
+    } else {
+      // setting empty arrays for the analysis start/end
+      parsedSettings.analysis_time_end = [];
+      parsedSettings.analysis_time_start = [];
+    };
+  };
+
+  /**
+   * checks if baseline_platform exists in the values array (is a field in the form)
+   * checks if baseline_platform has a value (baseline sensor(s) chosen)
+   * checks if the baseline_platform is an array [Water Change form only]
+   * gets the sensor name in order to find its start and end times from the conditions object
+   * updates the baseline_time_end and baseline_time_start in parsedSettings
+   * if no baseline sensor has been chosen yet, the revelant parsedSettings are set to an empty array
+  */
+  if (values.baseline_platform != undefined){
+    if(values.baseline_platform.length != 0){
+      let baselineSensorName;
+      // checking if the sensors stored in the values array are themselves an array (only for Water Change task)
+      if (Array.isArray(values.baseline_platform)){
+        baselineSensorName = values.baseline_platform[0];
+      } else {
+        baselineSensorName = values.baseline_platform;
+      };
+      // getting the start/end data for this sensor
+      for (let setting of settings.platform){
+        if (setting.name === baselineSensorName){ 
+          // updating the baseline start/end in parsedSettings
+          parsedSettings.baseline_time_end = new Array(setting.conditions.at(-1).value);
+          parsedSettings.baseline_time_start = new Array(setting.conditions.at(-1).value);
+        };
+      };
+    } else {
+      // setting empty arrays for the baseline start/end
+      parsedSettings.baseline_time_end = [];
+      parsedSettings.baseline_time_start = [];
+    };
+  };
+
   Object.keys(parsedSettings).forEach((setting) => {
     var minValues = [];
     var maxValues = [];
