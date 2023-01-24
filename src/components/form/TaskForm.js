@@ -79,9 +79,9 @@ const TaskForm = ({
         });
 
         // checks if Vegitation Threshold Lower > Vegitation Threshold Upper and raises an error on both fields
-        if (maxC > minC) {
-          setError('maxC', "Lower threshold cannot be larger than upper threshold.");
-          setError('minC', "Upper threshold cannot be smaller than lower threshold.");
+        if (minC > maxC) {
+          setError('minC', "Lower threshold cannot be larger than upper threshold.");
+          setError('maxC', "Upper threshold cannot be smaller than lower threshold.");
         };
         // checks if Tidal range proximity lower > Tidal range proximity upper and raises an error on both fields
         if (tide_range_lower > tide_range_upper) {
